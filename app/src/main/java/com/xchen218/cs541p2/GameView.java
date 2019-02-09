@@ -2,6 +2,9 @@ package com.xchen218.cs541p2;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.GridLayout;
 
 public class GameView extends GridLayout {
@@ -23,6 +26,43 @@ public class GameView extends GridLayout {
     }
 
     public void initialize(){
+        setOnTouchListener(new View.OnTouchListener() {
 
+            private float startposx, startposy, distx, disty;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startposx = event.getX();
+                        startposy = event.getY();
+                        Log.v("mytag0","left");
+                        System.out.println("clicked");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        distx = event.getX() - startposx;
+                        disty = event.getY() - startposy;
+
+                        if(Math.abs(distx) > Math.abs(disty)){
+                            if(distx < -5){
+                                System.out.println("");
+                                System.out.println("left");
+                                Log.v("mytag","left");//left
+                            }else if(distx > 5){
+                                Log.d("testtag2","right");//right
+                            }
+                        }else{
+                            if(disty < -5){
+                                Log.d("testtag3","up");//up
+                            }else if(disty > 5){
+                                Log.d("testtag4","down");//down
+                            }
+                        }
+                        break;
+
+                }
+                return true;
+            }
+        });
     }
 }
