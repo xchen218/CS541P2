@@ -26,7 +26,7 @@ public class GameView extends GridLayout {
     }
 
     public void initialize(){
-
+        setBackgroundColor(0xffbbada0);
         setColumnCount(4);
         setOnTouchListener(new View.OnTouchListener() {
 
