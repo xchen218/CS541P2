@@ -24,7 +24,11 @@ public class Tiles extends FrameLayout {
     }
     public void setNum(int n){
         this.num = n;
-        label.setText(num+"");
+        if(n <= 0) {
+            label.setText("");
+        }else {
+            label.setText(num + "");
+        }
     }
 
     public boolean collapse(Tiles t){

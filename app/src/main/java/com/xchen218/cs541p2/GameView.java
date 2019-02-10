@@ -1,13 +1,17 @@
 package com.xchen218.cs541p2;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
 
-public class GameView extends GridLayout {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameView<tilematrix> extends GridLayout {
 
     public GameView(Context context) {
         super(context);
@@ -72,16 +76,42 @@ public class GameView extends GridLayout {
         super.onSizeChanged(width, height, oldwidth, oldheight);
         int cardwidth = (Math.min(width, height) - 10)/4;
         addtile(cardwidth,cardwidth);
+        start();
     }
 
     private void addtile(int cardwidth, int cardheight){
         Tiles t;
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
+        for(int j = 0; j < 4; j++){
+            for(int i = 0; i < 4; i++){
                 t = new Tiles(getContext());
-                t.setNum(2);
+                t.setNum(0);
                 addView(t, cardwidth, cardheight);
+                board[i][j] = t;
             }
         }
     }
+//random number generator
+    private void rng(){
+        nullpoints.clear();
+        for(int j = 0; j < 4; j++){
+            for(int i = 0; i < 4; i++){
+                if(board[i][j].getNum() <= 0) {
+                    nullpoints.add(new Point(i,j));
+                }
+            }
+        }
+        Point p = nullpoints.remove((int)(Math.random()*nullpoints.size()));
+        board[p.x][p.y].setNum(Math.random()>0.1?2:4);
+    }
+    private void start() {
+        for(int j = 0; j < 4; j++){
+            for(int i = 0; i < 4; i++){
+                board[i][j].setNum(0);
+            }
+        }
+        rng();
+        rng();
+    }
+    private Tiles[][] board = new Tiles[4][4];
+    private List<Point> nullpoints = new ArrayList<>();
 }
