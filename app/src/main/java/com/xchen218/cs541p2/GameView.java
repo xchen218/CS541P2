@@ -130,16 +130,16 @@ public class GameView<tilematrix> extends GridLayout {
                             board[i][j].setNum(board[i][k].getNum());
                             board[i][k].setNum(0);
                             j--;
-                            break;
                         }else if(board[i][k].collapse(board[i][j]) == true ){
                             board[i][j].setNum(2*board[i][j].getNum());
                             board[i][k].setNum(0);
-                            break;
                         }
+                        break;
                     }
                 }
             }
         }
+        rng();
     }
 
     private void down(){
@@ -151,16 +151,16 @@ public class GameView<tilematrix> extends GridLayout {
                             board[i][j].setNum(board[i][k].getNum());
                             board[i][k].setNum(0);
                             j++;
-                            break;
                         }else if(board[i][k].collapse(board[i][j]) == true ){
                             board[i][j].setNum(2*board[i][j].getNum());
                             board[i][k].setNum(0);
-                            break;
                         }
+                        break;
                     }
                 }
             }
         }
+        rng();
     }
 
     private void left(){
@@ -172,16 +172,16 @@ public class GameView<tilematrix> extends GridLayout {
                             board[i][j].setNum(board[k][j].getNum());
                             board[k][j].setNum(0);
                             i--;
-                            break;
                         }else if(board[k][j].collapse(board[i][j]) == true ){
                             board[i][j].setNum(2*board[i][j].getNum());
                             board[k][j].setNum(0);
-                            break;
                         }
+                        break;
                     }
                 }
             }
         }
+        rng();
     }
     private void right(){
         for(int j = 3; j >= 0; j--){
@@ -192,15 +192,15 @@ public class GameView<tilematrix> extends GridLayout {
                             board[i][j].setNum(board[k][j].getNum());
                             board[k][j].setNum(0);
                             i++;
-                            break;
                         }else if(board[k][j].collapse(board[i][j]) == true ){
                             board[i][j].setNum(2*board[i][j].getNum());
                             board[k][j].setNum(0);
-                            break;
                         }
+                        break;
                     }
                 }
             }
         }
+        rng();
     }
 }
