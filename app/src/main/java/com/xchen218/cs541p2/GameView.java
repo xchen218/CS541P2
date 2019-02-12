@@ -53,15 +53,19 @@ public class GameView<tilematrix> extends GridLayout {
                             if(distx < -5){
                                 System.out.println("");
                                 System.out.println("left");
-                                Log.v("mytag","left");//left
+                                Log.d("testtag1","left");//left
+                                left();
                             }else if(distx > 5){
                                 Log.d("testtag2","right");//right
+                                right();
                             }
                         }else{
                             if(disty < -5){
                                 Log.d("testtag3","up");//up
+                                up();
                             }else if(disty > 5){
                                 Log.d("testtag4","down");//down
+                                down();
                             }
                         }
                         break;
@@ -114,4 +118,89 @@ public class GameView<tilematrix> extends GridLayout {
     }
     private Tiles[][] board = new Tiles[4][4];
     private List<Point> nullpoints = new ArrayList<>();
+
+    //collapse interaction function
+
+    private void up(){
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                for(int k = j + 1; k < 4; k++){
+                    if(board[i][k].getNum() > 0){
+                        if(board[i][j].getNum() <= 0) {
+                            board[i][j].setNum(board[i][k].getNum());
+                            board[i][k].setNum(0);
+                            j--;
+                            break;
+                        }else if(board[i][k].collapse(board[i][j]) == true ){
+                            board[i][j].setNum(2*board[i][j].getNum());
+                            board[i][k].setNum(0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void down(){
+        for(int i = 3; i >= 0; i--){
+            for(int j = 3; j >= 0; j--){
+                for(int k = j - 1; k >= 0; k--){
+                    if(board[i][k].getNum() > 0){
+                        if(board[i][j].getNum() <= 0) {
+                            board[i][j].setNum(board[i][k].getNum());
+                            board[i][k].setNum(0);
+                            j++;
+                            break;
+                        }else if(board[i][k].collapse(board[i][j]) == true ){
+                            board[i][j].setNum(2*board[i][j].getNum());
+                            board[i][k].setNum(0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void left(){
+        for(int j = 0; j < 4; j++){
+            for(int i = 0; i < 4; i++){
+                for(int k = i + 1; k < 4; k++){
+                    if(board[k][j].getNum() > 0){
+                        if(board[i][j].getNum() <= 0) {
+                            board[i][j].setNum(board[k][j].getNum());
+                            board[k][j].setNum(0);
+                            i--;
+                            break;
+                        }else if(board[k][j].collapse(board[i][j]) == true ){
+                            board[i][j].setNum(2*board[i][j].getNum());
+                            board[k][j].setNum(0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private void right(){
+        for(int j = 3; j >= 0; j--){
+            for(int i = 3; i >= 0; i--){
+                for(int k = i - 1; k >= 0; k--){
+                    if(board[k][j].getNum() > 0){
+                        if(board[i][j].getNum() <= 0) {
+                            board[i][j].setNum(board[k][j].getNum());
+                            board[k][j].setNum(0);
+                            i++;
+                            break;
+                        }else if(board[k][j].collapse(board[i][j]) == true ){
+                            board[i][j].setNum(2*board[i][j].getNum());
+                            board[k][j].setNum(0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
